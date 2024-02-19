@@ -1,20 +1,20 @@
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-
-int countVietnameseLetter(string s) {
-    int ans = 0;
+vector<string> a;
+void countVietnameseLetter(string s) {
     int i = 0;
     while (i < s.length()) {
         if (s[i] == 'a' || s[i] == 'd' || s[i] == 'e' || s[i] == 'o') {
             if (s[i] == s[i + 1]) {
-                ans++;
+                a.push_back(string(1,s[i]) + s[i+1]);
                 i += 2;
             }
             else if ((s[i] == 'a' || s[i] == 'o') && s[i + 1] == 'w') {
-                ans++;
+                a.push_back(string(1, s[i]) + s[i + 1]);
                 i += 2;
             }
             else {
@@ -22,19 +22,30 @@ int countVietnameseLetter(string s) {
             }
         }
         else if (s[i] == 'w') {
-            ans++;
+            a.push_back(string(1, s[i]));
             i++;
         }
         else {
             i++;
         }
     }
-    return ans;
 }
 
 int main() {
     string s;
     cin >> s;
-    cout << countVietnameseLetter(s);
+
+    countVietnameseLetter(s);
+
+    cout << a.size() << " (";
+    for (int i = 0; i < a.size(); i++) {
+        if (i == a.size()-1) {
+            cout << a[i] << ")";
+        }
+        else {
+            cout << a[i] << ",";
+        }
+    }
+
     return 0;
 }
